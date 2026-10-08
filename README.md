@@ -14,7 +14,7 @@ Claude Code の入力欄の上に、使用量メーターを出す Mod（Functio
 | 5H | 5時間枠の使用率と、リセットまでの残り（`3h00m`） |
 | 7D | 7日枠の使用率と、リセットまでの残り（`5d10h`） |
 | FABLE など | モデル別の週枠（契約に枠がある時だけ並ぶ） |
-| EFFORT | 次の送信の effort。◀ ▶（デスクトップ）か、つまみを掴んで（ターミナル）変える |
+| EFFORT | 次の送信の effort。帯の右の ◀ ▶ で変える（ターミナル版はつまみを掴んで動かす） |
 
 - 棒の色は「時間の経過に対して使いすぎていないか」で変わります。順調＝紫、ペース速め＝琥珀、危ない＝赤
 - 棒の上の細い縦線は、その枠の時間がどこまで進んだか
@@ -23,34 +23,38 @@ Claude Code の入力欄の上に、使用量メーターを出す Mod（Functio
 ## 必要なもの
 
 - **Claude Code 2.1.287 以上**（Mod＝Function Hooks が正式に入った版）
-  - ターミナル: `claude --version` で確認
   - デスクトップアプリ（Code タブ）: アプリが同梱している CLI の版で決まります。Windows なら `%APPDATA%\Claude\claude-code\` のフォルダ名が版です
+  - ターミナル版: `claude --version` で確認
   - それより古い版では、`~/.claude/settings.json` の `env` に `"CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1"` が要りました
 - モデル別の週枠（FABLE など）を出すには、PATH の通った `claude` コマンドがログイン済みであること。数分おきに `claude -p` を1本起動して `/usage` と同じ中身を聞きます（モデルは呼ばないので課金なし）。ログインしていなければ、その枠が出ないだけで他は動きます
 
 ## 入れ方
 
-### GitHub から（ターミナルで）
+Claude Code デスクトップアプリ（Code タブ）で使う前提で作っています。
+
+### デスクトップアプリ（Code タブ）で入れる
+
+Code タブのセッションで、Claude に次のように頼みます（中で `claude plugin` コマンドを2つ実行してもらうだけです）。
+
+```text
+次の2つを実行して usage-band を入れて
+claude plugin marketplace add kimura-0314/claude-mod-usage-band
+claude plugin install usage-band@usage-band
+```
+
+入れた後に新しいセッションを開くと、入力欄の上に帯が出ます（開いていたセッションは開始時の状態のまま）。Code タブの入力欄に `/plugin install` を打っても動きません（このコマンドはターミナル版のもの）。
+
+### ターミナル版で入れる
 
 ```text
 /plugin install usage-band --marketplace kimura-0314/claude-mod-usage-band
 ```
 
-`Add marketplace?` に `y`、スコープは user を選びます。デスクトップアプリの Code タブではこのコマンドは使えませんが、ターミナルで user スコープに入れれば、デスクトップのセッションでも帯が出ます。
+`Add marketplace?` に `y`、スコープは user を選びます。user スコープに入れれば、デスクトップアプリのセッションでも帯が出ます。
 
 ### 手元のフォルダから
 
-このリポジトリを clone して、ターミナルで次の2つを打ちます。
-
-```bash
-claude plugin marketplace add /path/to/claude-mod-usage-band
-```
-
-```bash
-claude plugin install usage-band@usage-band
-```
-
-`~/.claude/settings.json` に直接書く場合は次の形です（パスは自分の環境に合わせる）。
+clone したフォルダを marketplace にする場合は、`kimura-0314/claude-mod-usage-band` の所をフォルダのパスに置き換えます。`~/.claude/settings.json` に直接書く場合は次の形です（パスは自分の環境に合わせる）。
 
 ```json
 {
@@ -60,8 +64,6 @@ claude plugin install usage-band@usage-band
   "enabledPlugins": { "usage-band@usage-band": true }
 }
 ```
-
-入れた後は新しいセッションを開くと帯が出ます（開いているセッションは開始時の版のまま）。
 
 ## 注意
 
