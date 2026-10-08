@@ -1,0 +1,6 @@
+{
+  "name": "usage-band",
+  "version": "0.1.0",
+  "description": "入力欄の上に使用量メーター（ctx・5h・7d・モデル別の週枠）と effort の切り替えを出す",
+  "author": { "name": "kimura" }
+}

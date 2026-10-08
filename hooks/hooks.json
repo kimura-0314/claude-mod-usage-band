@@ -1,0 +1,4 @@
+{
+  "description": "入力欄の上に使用量メーターと effort の切り替えを出す",
+  "modules": ["./register.ts"]
+}
