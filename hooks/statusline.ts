@@ -102,7 +102,8 @@ const frame = (w: number, h: number) => `<rect x="0.5" y="0.5" width="${w - 1}" 
 const FONT = "ui-sans-serif,system-ui,'Segoe UI','Yu Gothic UI',sans-serif"
 const INK = '#6b6f78'
 // 7d Fable は枠に入らないので FABLE だけ
-const short = (label: string) => (/^7d \w/i.test(label) ? label.slice(3) : label).toUpperCase()
+// 枠の名前は本体の答えから来るので、SVG に入れる前に < > & をつぶす
+const short = (label: string) => (/^7d \w/i.test(label) ? label.slice(3) : label).toUpperCase().replace(/[<>&"]/g, '')
 export function meterSvg(m: Meter) {
   const { width: w, height: h, labelW, numW, resetW } = CELL
   const L = PAD, R = w - PAD

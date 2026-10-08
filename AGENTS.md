@@ -1,5 +1,5 @@
 # AGENTS.md
-Claude Code の Mod（Function Hooks）プラグイン `usage-band`。kimura-assist の ㉒ 使用量メーターだけを、他の人が入れられる雛形として切り出したもの（2026-10-08・@longdrift_jp の「雛形の公開、見たいです」から）。
+Claude Code の Mod（Function Hooks）プラグイン `usage-band`。kimura-assist の ㉒ 使用量メーターだけを、他の人が入れられる雛形として切り出したもの（2026-10-08・X の「雛形の公開、見たいです」というリプから）。
 
 - `hooks/statusline.ts`＝純粋関数（meters・meterSvg・effortSvg・band・parseGetUsage・mergeLimits）。kimura-assist の同名ファイルと中身はほぼ同じ（コメントの個人的な経緯を外し、7d Fable の空枠を出さないようにした）
 - `hooks/register.ts`＝session.start／prompt.submit／session.measure／ui.render(AbovePrompt)／turn.step／ui.message の6本。kimura-assist から外したもの＝crab-stage の描き直し停止（crab-stage-busy）・やることボタン・%TEMP% への設定/枠のダンプ
